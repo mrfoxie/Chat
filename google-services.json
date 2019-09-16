@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "776082333889",
+    "firebase_url": "https://hackeridiot-3ea43.firebaseio.com",
+    "project_id": "hackeridiot-3ea43",
+    "storage_bucket": "hackeridiot-3ea43.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:776082333889:android:7c74c1f7e6d399f1",
+        "android_client_info": {
+          "package_name": "tk.hackeridiot.chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "776082333889-6n9n78ehq041a2j7sgksdufrq8kqsmet.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "tk.hackeridiot.chat",
+            "certificate_hash": "6245079f8e4135e0452e8923f04a8a04b3d4520b"
+          }
+        },
+        {
+          "client_id": "776082333889-i2cvhn2eulhri4fb0ehiio40m90a00p6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "tk.hackeridiot.chat",
+            "certificate_hash": "f0ce99518549216a88ba3b4f845587f37dfb270d"
+          }
+        },
+        {
+          "client_id": "776082333889-9ibemc7jlguvbg4ti42hn8bl7sqh4obc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7zRqrspWNk8yt27O4mDvOfXc-U8riFe0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "776082333889-9ibemc7jlguvbg4ti42hn8bl7sqh4obc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
