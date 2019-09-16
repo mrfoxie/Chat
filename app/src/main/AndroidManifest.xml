@@ -9,7 +9,8 @@
         android:roundIcon="@drawable/logo_app"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FindFriendsActivity"></activity>
+        <activity android:name=".FindFriendsActivity"
+            android:parentActivityName=".MainActivity"></activity>
         <activity android:name=".PhoneLoginActivity" />
         <activity android:name=".GroupChatActivity" />
         <activity android:name=".SettingsActivity" />

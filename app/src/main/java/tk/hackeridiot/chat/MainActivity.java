@@ -106,9 +106,14 @@ public class MainActivity extends AppCompatActivity {
             RequestNewGroup();
         }
         if (item.getItemId() == R.id.main_find_people_options){
-
+            SendUserToFindFriendsActivity();
         }
         return true;
+    }
+
+    private void SendUserToFindFriendsActivity() {
+        Intent findFriendsIntent = new Intent(MainActivity.this, FindFriendsActivity.class);
+        startActivity(findFriendsIntent);
     }
 
     private void RequestNewGroup() {
