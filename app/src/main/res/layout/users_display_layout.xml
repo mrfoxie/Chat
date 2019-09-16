@@ -30,7 +30,7 @@
                     android:layout_height="20dp"
                     android:src="@drawable/online"
                     android:layout_marginTop="5dp"
-                    android:visibility="invisible v"/>
+                    android:visibility="invisible"/>
                 <TextView
                     android:id="@+id/user_profile_name"
                     android:layout_width="wrap_content"
