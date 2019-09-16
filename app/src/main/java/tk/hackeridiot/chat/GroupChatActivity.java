@@ -146,10 +146,13 @@ public class GroupChatActivity extends AppCompatActivity {
     }
 
     private void InitializeField() {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(currentGroupName);
         SendMessageButton = (Button) findViewById(R.id.send_message_button);
         userMessageInput = (EditText) findViewById(R.id.input_group_message);
         displayTextMessage = (TextView) findViewById(R.id.group_chat_text_display);
         mScrollView = (ScrollView) findViewById(R.id.my_scroll_view);
     }
+    
 }
