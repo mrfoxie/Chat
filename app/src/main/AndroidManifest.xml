@@ -11,11 +11,13 @@
         android:theme="@style/AppTheme">
         <activity android:name=".FindFriendsActivity"
             android:parentActivityName=".MainActivity"></activity>
-        <activity android:name=".PhoneLoginActivity" />
+        <activity android:name=".PhoneLoginActivity"
+            android:windowSoftInputMode="stateVisible"/>
         <activity android:name=".GroupChatActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".LoginActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="stateAlwaysHidden">
