@@ -1,6 +1,5 @@
 package tk.hackeridiot.chat;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -47,7 +46,7 @@ public class FindFriendsActivity extends AppCompatActivity {
         FirebaseRecyclerAdapter<Contacts, FindFriendViewHolder> adapter =
                 new FirebaseRecyclerAdapter<Contacts, FindFriendViewHolder>(options) {
                     @Override
-                    protected void onBindViewHolder(@NonNull FindFriendViewHolder holder, final int position, @NonNull Contacts model) {
+                    protected void onBindViewHolder(FindFriendViewHolder holder, final int position, Contacts model) {
                         holder.userName.setText(model.getName());
                         holder.userStatus.setText(model.getStatus());
                         Picasso.get().load(model.getImage()).placeholder(R.drawable.logo_app).into(holder.profileImage);
@@ -55,16 +54,15 @@ public class FindFriendsActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 String visit_user_id = getRef(position).getKey();
-                                Intent profileIntent = new Intent(FindFriendsActivity.this,ProfileActivity.class);
+                                Intent profileIntent = new Intent(FindFriendsActivity.this, ProfileActivity.class);
                                 profileIntent.putExtra("visit_user_id", visit_user_id);
                                 startActivity(profileIntent);
                             }
                         });
                     }
 
-                    @NonNull
                     @Override
-                    public FindFriendViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+                    public FindFriendViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
                         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.users_display_layout, viewGroup, false);
                         FindFriendViewHolder viewHolder = new FindFriendViewHolder(view);
                         return viewHolder;
@@ -76,7 +74,7 @@ public class FindFriendsActivity extends AppCompatActivity {
     public static class FindFriendViewHolder extends RecyclerView.ViewHolder{
         TextView userName, userStatus;
         CircleImageView profileImage;
-        public FindFriendViewHolder(@NonNull View itemView) {
+        public FindFriendViewHolder(View itemView) {
             super(itemView);
             userName = itemView.findViewById(R.id.user_profile_name);
             userStatus = itemView.findViewById(R.id.user_status);

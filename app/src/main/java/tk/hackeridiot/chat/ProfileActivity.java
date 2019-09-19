@@ -1,13 +1,11 @@
 package tk.hackeridiot.chat;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -49,7 +47,7 @@ public class ProfileActivity extends AppCompatActivity {
     private void RetrieveUserInfo() {
         UserRef.child(reciveUserID).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
                 if ((dataSnapshot.exists()) && (dataSnapshot.hasChild("image"))){
                     String userName = dataSnapshot.child("name").getValue().toString();
                     String userImage = dataSnapshot.child("image").getValue().toString();
@@ -69,7 +67,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+            public void onCancelled(DatabaseError databaseError) {
 
             }
         });
@@ -79,7 +77,7 @@ public class ProfileActivity extends AppCompatActivity {
         ChatRequestRef.child(sendUserID)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.hasChild(reciveUserID)){
                             String request_type = dataSnapshot.child(reciveUserID).child("request_type").getValue().toString();
                             if (request_type.equals("sent")){
@@ -90,7 +88,7 @@ public class ProfileActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    public void onCancelled(DatabaseError databaseError) {
 
                     }
                 });
@@ -115,17 +113,17 @@ public class ProfileActivity extends AppCompatActivity {
                 .child("request_type").setValue("send")
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> task) {
+                    public void onComplete(Task<Void> task) {
                         if (task.isSuccessful()){
                             ChatRequestRef.child(reciveUserID).child(sendUserID)
                                     .child("request_type").setValue("received")
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
+                                        public void onComplete(Task<Void> task) {
                                             if (task.isSuccessful()){
                                                 senMessageRequestButton.setEnabled(true);
                                                 Current_state = "request_sent";
-                                                senMessageRequestButton.setText("Cancle Chat Request");
+                                                senMessageRequestButton.setText("Cancel Chat Request");
                                             }
                                         }
                                     });
