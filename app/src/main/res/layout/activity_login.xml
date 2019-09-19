@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginActivity"
-    android:background="@color/colorPrimary">
+    android:background="@android:color/white">
 
 
     <ScrollView
@@ -21,36 +21,38 @@
                 android:id="@+id/login_image"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:src="@drawable/logo_app"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="20dp"
-                android:layout_centerHorizontal="true"/>
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="90dp"
+                android:src="@drawable/logo_app" />
             <EditText
                 android:id="@+id/login_email"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/login_image"
-                android:background="@color/colorPrimary"
+                android:background="@android:color/transparent"
+                android:drawableStart="@drawable/email"
                 android:inputType="textEmailAddress"
                 android:padding="2dp"
-                android:layout_marginTop="150dp"
+                android:layout_marginTop="100dp"
                 android:hint="Enter Email ID"
-                android:textColorHint="#cccccc"
-                android:textColor="#ffffff"/>
+                android:textColorHint="#333333"
+                android:textColor="#000000"/>
             <EditText
                 android:id="@+id/login_password"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/login_email"
-                android:background="@color/colorPrimary"
+                android:background="@android:color/transparent"
+                android:drawableStart="@drawable/password"
                 android:inputType="textPassword"
                 android:padding="2dp"
                 android:layout_marginTop="25dp"
                 android:hint="Enter Password"
-                android:textColorHint="#cccccc"
-                android:textColor="#ffffff"/>
+                android:textColorHint="#333333"
+                android:textColor="#000000"/>
             <TextView
                 android:id="@+id/forget_password_link"
                 android:layout_width="300dp"
@@ -59,6 +61,7 @@
                 android:layout_below="@id/login_password"
                 android:layout_marginTop="5dp"
                 android:textAlignment="textEnd"
+                android:textColor="#000000"
                 android:textStyle="bold"
                 android:text="Forget password?"/>
             <Button
@@ -79,6 +82,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/login_button"
                 android:layout_marginTop="10dp"
+                android:textColor="#000000"
                 android:textStyle="bold"
                 android:text="Need New Account. Click Here"/>
             <TextView
@@ -88,6 +92,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/need_account_link"
                 android:layout_marginTop="5dp"
+                android:textColor="#000000"
                 android:textStyle="bold"
                 android:text="or Login Using"/>
             <Button

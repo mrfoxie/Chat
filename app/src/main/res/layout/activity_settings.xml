@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SettingsActivity"
-    android:background="@color/colorPrimary">
+    android:background="@android:color/white">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_image"
@@ -20,7 +20,7 @@
         android:layout_below="@+id/profile_image"
         android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
-        android:background="@color/colorPrimary"
+        android:background="@android:color/transparent"
         android:drawableStart="@drawable/edit_profile"
         android:padding="5dp"
         android:layout_width="350dp"
@@ -28,22 +28,22 @@
         android:hint="User Name"
         android:text="MACE-"
         android:inputType="text"
-        android:textColorHint="#cccccc"
-        android:textColor="#ffffff"/>
+        android:textColorHint="#333333"
+        android:textColor="#000000"/>
     <EditText
         android:id="@+id/set_profile_status"
         android:layout_below="@+id/set_user_name"
         android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
-        android:background="@color/colorPrimary"
+        android:background="@android:color/transparent"
         android:drawableStart="@drawable/edit_status"
         android:padding="5dp"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:hint="Department"
         android:inputType="text"
-        android:textColorHint="#cccccc"
-        android:textColor="#ffffff"/>
+        android:textColorHint="#333333"
+        android:textColor="#000000"/>
     <Button
         android:id="@+id/update_settings_button"
         android:layout_below="@+id/set_profile_status"

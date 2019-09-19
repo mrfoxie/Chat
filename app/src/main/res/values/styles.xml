@@ -6,16 +6,16 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textColor">#ffffff</item>
-        <item name="android:itemBackground">@color/colorPrimaryDark</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:itemBackground">@android:color/white</item>
     </style>
     <style name="AlertDialog" parent="Theme.AppCompat.DayNight.Dialog.Alert">
         <item name="android:padding">5dp</item>
         <item name="dialogCornerRadius">10dp</item>
-        <item name="android:textColor">#fff</item>
-        <item name="android:editTextColor">#fff</item>
-        <item name="android:editTextBackground">@color/colorPrimaryDark</item>
-        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:editTextColor">#000000</item>
+        <item name="android:editTextBackground">@android:color/transparent</item>
+        <item name="android:background">@android:color/white</item>
     </style>
 
 </resources>

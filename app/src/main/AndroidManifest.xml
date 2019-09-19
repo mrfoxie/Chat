@@ -12,10 +12,11 @@
         <activity android:name=".FindFriendsActivity"
             android:parentActivityName=".MainActivity"></activity>
         <activity android:name=".PhoneLoginActivity"
-            android:windowSoftInputMode="stateVisible"/>
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity android:name=".GroupChatActivity" />
         <activity android:name=".SettingsActivity" />
-        <activity android:name=".RegisterActivity" />
+        <activity android:name=".RegisterActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity android:name=".LoginActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity

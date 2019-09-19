@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegisterActivity"
-    android:background="@color/colorPrimary">
+    android:background="@android:color/white">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:src="@drawable/logo_app"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="100dp"
                 android:layout_centerHorizontal="true"
                 />
             <EditText
@@ -28,26 +28,28 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/register_image"
-                android:background="@color/colorPrimary"
+                android:background="@android:color/transparent"
+                android:drawableStart="@drawable/email"
                 android:inputType="textEmailAddress"
                 android:padding="2dp"
                 android:layout_marginTop="220dp"
                 android:hint="Enter Email ID"
-                android:textColorHint="#cccccc"
-                android:textColor="#ffffff"/>
+                android:textColorHint="#333333"
+                android:textColor="#000000"/>
             <EditText
                 android:id="@+id/register_password"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/register_email"
-                android:background="@color/colorPrimary"
+                android:background="@android:color/transparent"
+                android:drawableStart="@drawable/password"
                 android:inputType="textPassword"
                 android:padding="2dp"
                 android:layout_marginTop="20dp"
                 android:hint="Enter Password"
-                android:textColorHint="#cccccc"
-                android:textColor="#ffffff"/>
+                android:textColorHint="#333333"
+                android:textColor="#000000"/>
             <Button
                 android:id="@+id/register_button"
                 android:layout_width="250dp"
