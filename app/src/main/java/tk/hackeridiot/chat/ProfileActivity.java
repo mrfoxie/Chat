@@ -1,9 +1,7 @@
 package tk.hackeridiot.chat;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.database.CursorIndexOutOfBoundsException;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -76,25 +74,25 @@ public class ProfileActivity extends AppCompatActivity {
                         .child("Contacts").setValue("Saved")
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
-                            public void onComplete(@NonNull Task<Void> task) {
+                            public void onComplete(Task<Void> task) {
                                 if (task.isSuccessful()){
                                     ContactRef.child(receiverUserID).child(sendUserID)
                                             .child("Contacts").setValue("Saved")
                                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
+                                                public void onComplete(Task<Void> task) {
                                                     if (task.isSuccessful()){
                                                         ChatRequestRef.child(sendUserID).child(receiverUserID)
                                                                 .removeValue()
                                                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                     @Override
-                                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                                    public void onComplete(Task<Void> task) {
                                                                         if (task.isSuccessful()){
                                                                             ContactRef.child(receiverUserID).child(sendUserID)
                                                                                     .child("Contacts").setValue("Saved")
                                                                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                                         @Override
-                                                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                                                        public void onComplete(Task<Void> task) {
                                                                                             if (task.isSuccessful()){
                                                                                                 sendMessageRequestButton.setEnabled(true);
                                                                                                 Current_state = "friends";
@@ -145,7 +143,7 @@ public class ProfileActivity extends AppCompatActivity {
                             ContactRef.child(sendUserID)
                                     .addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
-                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
                                             if (dataSnapshot.hasChild(receiverUserID)){
                                                 Current_state = "friends";
                                                 sendMessageRequestButton.setText("Remove This Contact.");
@@ -153,7 +151,7 @@ public class ProfileActivity extends AppCompatActivity {
                                         }
 
                                         @Override
-                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                                        public void onCancelled(DatabaseError databaseError) {
 
                                         }
                                     });
@@ -179,6 +177,9 @@ public class ProfileActivity extends AppCompatActivity {
                     if (Current_state.equals("request_received")){
                         AcceptChatRequest();
                     }
+                    if (Current_state.equals("friends")){
+                        RemoveSpecificContact();
+                    }
                 }
             });
         }
@@ -187,30 +188,56 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
+    private void RemoveSpecificContact() {
+        ContactRef.child(sendUserID).child(receiverUserID)
+                .removeValue()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(Task<Void> task) {
+                        if (task.isSuccessful()){
+                            ContactRef.child(receiverUserID).child(sendUserID)
+                                    .removeValue()
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(Task<Void> task) {
+                                            if (task.isSuccessful()){
+                                                sendMessageRequestButton.setEnabled(true);
+                                                Current_state = "new";
+                                                sendMessageRequestButton.setText("Send Message");
+                                                DeclineMessageRequestButton.setVisibility(View.INVISIBLE);
+                                                DeclineMessageRequestButton.setEnabled(false);
+                                            }
+                                        }
+                                    });
+                        }
+                    }
+                });
+    }
+
     private void AcceptChatRequest() {
         ContactRef.child(sendUserID).child(receiverUserID)
                 .child("Contacts").setValue("Saved")
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> task) {
+                    public void onComplete(Task<Void> task) {
                         if (task.isSuccessful()){
                             ContactRef.child(receiverUserID).child(sendUserID)
                                     .child("Contacts").setValue("Saved")
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
+                                        public void onComplete(Task<Void> task) {
                                             if (task.isSuccessful()){
                                                 ChatRequestRef.child(sendUserID).child(receiverUserID)
                                                         .removeValue()
                                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                             @Override
-                                                            public void onComplete(@NonNull Task<Void> task) {
+                                                            public void onComplete(Task<Void> task) {
                                                                 if (task.isSuccessful()){
                                                                     ContactRef.child(receiverUserID).child(sendUserID)
                                                                             .child("Contacts").setValue("Saved")
                                                                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                                 @Override
-                                                                                public void onComplete(@NonNull Task<Void> task) {
+                                                                                public void onComplete(Task<Void> task) {
                                                                                     if (task.isSuccessful()){
                                                                                         sendMessageRequestButton.setEnabled(true);
                                                                                         Current_state = "friends";
@@ -236,13 +263,13 @@ public class ProfileActivity extends AppCompatActivity {
                 .removeValue()
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> task) {
+                    public void onComplete(Task<Void> task) {
                         if (task.isSuccessful()){
                             ChatRequestRef.child(receiverUserID).child(sendUserID)
                                     .removeValue()
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
+                                        public void onComplete(Task<Void> task) {
                                             if (task.isSuccessful()){
                                                 sendMessageRequestButton.setEnabled(true);
                                                 Current_state = "new";
