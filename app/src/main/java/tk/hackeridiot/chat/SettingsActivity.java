@@ -52,6 +52,9 @@ public class SettingsActivity extends AppCompatActivity {
         currentUserID = mAuth.getCurrentUser().getUid();
         RootRef = FirebaseDatabase.getInstance().getReference();
         UserProfileImageRef = FirebaseStorage.getInstance().getReference().child("Profile Images");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle("Account Setup");
         InitializeField();
         userName.setVisibility(View.INVISIBLE);
         UpdateAccountSettings.setOnClickListener(new View.OnClickListener() {
@@ -115,11 +118,11 @@ public class SettingsActivity extends AppCompatActivity {
             Toast.makeText(this, "Status is Empty.", Toast.LENGTH_SHORT).show();
         }
         else {
-            HashMap<String, String> profileMap = new HashMap<>();
+            HashMap<String, Object> profileMap = new HashMap<>();
                 profileMap.put("uid", currentUserID);
                 profileMap.put("name", setUserName);
                 profileMap.put("status", setStatus);
-            RootRef.child("Users").child(currentUserID).setValue(profileMap)
+            RootRef.child("Users").child(currentUserID).updateChildren(profileMap)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(Task<Void> task) {
