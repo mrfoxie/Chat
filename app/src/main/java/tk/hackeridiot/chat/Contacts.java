@@ -2,9 +2,12 @@ package tk.hackeridiot.chat;
 
 public class Contacts {
     public String name, status, image;
-    public Contacts(){
+
+    public Contacts()
+    {
 
     }
+
     public Contacts(String name, String status, String image) {
         this.name = name;
         this.status = status;
