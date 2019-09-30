@@ -5,7 +5,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,16 +29,16 @@ public class MessageAdptor extends RecyclerView.Adapter<MessageAdptor.MessageVie
     public class MessageViewHolder extends RecyclerView.ViewHolder{
         public TextView senderMessageText, receiverMessageText;
         public CircleImageView reciverProfileImage;
-        public MessageViewHolder(@NonNull View itemView) {
+        public MessageViewHolder(View itemView) {
             super(itemView);
             senderMessageText = (TextView) itemView.findViewById(R.id.send_message_text);
             receiverMessageText = (TextView) itemView.findViewById(R.id.receive_message_text);
             reciverProfileImage = (CircleImageView) itemView.findViewById(R.id.message_profile_image);
         }
     }
-    @NonNull
+
     @Override
-    public MessageViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public MessageViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.custom_message_layout, viewGroup, false);
         mAuth = FirebaseAuth.getInstance();
@@ -47,7 +46,7 @@ public class MessageAdptor extends RecyclerView.Adapter<MessageAdptor.MessageVie
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final MessageViewHolder messageViewHolder, int i) {
+    public void onBindViewHolder(final MessageViewHolder messageViewHolder, int i) {
         String messageSenderID = mAuth.getCurrentUser().getUid();
         Messages messages = userMessageList.get(i);
         String fromUserID = messages.getFrom();
@@ -55,7 +54,7 @@ public class MessageAdptor extends RecyclerView.Adapter<MessageAdptor.MessageVie
         userRef = FirebaseDatabase.getInstance().getReference().child("Users").child(fromUserID);
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.hasChild("image")){
                     String receiveImage = dataSnapshot.child("image").getValue().toString();
                     Picasso.get().load(receiveImage).placeholder(R.drawable.logo_app).into(messageViewHolder.reciverProfileImage);
@@ -63,10 +62,18 @@ public class MessageAdptor extends RecyclerView.Adapter<MessageAdptor.MessageVie
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+            public void onCancelled(DatabaseError databaseError) {
 
             }
         });
+//        if (fromMessageType.equals("text")){
+//            messageViewHolder.receiverMessageText.setVisibility(View.INVISIBLE);
+//            messageViewHolder.reciverProfileImage.setVisibility(View.INVISIBLE);
+//            if (fromUserID.equals(messageSenderID)){
+//                messageViewHolder.senderMessageText.setBackgroundResource(R.drawable.sender_message_layout);
+//
+//            }
+//        }
     }
 
     @Override
