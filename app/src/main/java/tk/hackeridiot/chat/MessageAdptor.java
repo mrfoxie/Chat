@@ -1,6 +1,8 @@
 package tk.hackeridiot.chat;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,9 +53,9 @@ public class MessageAdptor extends RecyclerView.Adapter<MessageAdptor.MessageVie
     }
 
     @Override
-    public void onBindViewHolder(final MessageViewHolder messageViewHolder, int i) {
+    public void onBindViewHolder(final MessageViewHolder messageViewHolder, int position) {
         String messageSenderID = mAuth.getCurrentUser().getUid();
-        Messages messages = userMessageList.get(i);
+        Messages messages = userMessageList.get(position);
         String fromUserID = messages.getFrom();
         String fromMessageType = messages.getType();
         userRef = FirebaseDatabase.getInstance().getReference().child("Users").child(fromUserID);
@@ -82,7 +84,7 @@ public class MessageAdptor extends RecyclerView.Adapter<MessageAdptor.MessageVie
                 messageViewHolder.senderMessageText.setVisibility(View.VISIBLE);
                 messageViewHolder.senderMessageText.setBackgroundResource(R.drawable.sender_message_layout);
                 messageViewHolder.senderMessageText.setTextColor(Color.WHITE);
-                messageViewHolder.senderMessageText.setText(messages.getMessage());
+                messageViewHolder.senderMessageText.setText(messages.getMessage() + "\n \n" + messages.getTime() + "-" + messages.getDate());
             }
             else {
                 messageViewHolder.senderMessageText.setVisibility(View.INVISIBLE);
@@ -90,7 +92,37 @@ public class MessageAdptor extends RecyclerView.Adapter<MessageAdptor.MessageVie
                 messageViewHolder.receiverMessageText.setVisibility(View.VISIBLE);
                 messageViewHolder.receiverMessageText.setBackgroundResource(R.drawable.receiver_message_layout);
                 messageViewHolder.senderMessageText.setTextColor(Color.WHITE);
-                messageViewHolder.receiverMessageText.setText(messages.getMessage());
+                messageViewHolder.receiverMessageText.setText(messages.getMessage() + "\n \n" + messages.getTime() + "-" + messages.getDate());
+            }
+        }
+        else if (fromMessageType.equals("image")){
+            if (fromUserID.equals(messageSenderID)){
+                messageViewHolder.messageSenderPicture.setVisibility(View.VISIBLE);
+                Picasso.get().load(messages.getMessage()).into(messageViewHolder.messageSenderPicture);
+            }
+            else {
+                messageViewHolder.receiverProfileImage.setVisibility(View.VISIBLE);
+                messageViewHolder.messageReceiverPicture.setVisibility(View.VISIBLE);
+                Picasso.get().load(messages.getMessage()).into(messageViewHolder.messageReceiverPicture);
+            }
+        }
+        else {
+            if (fromUserID.equals(messageSenderID)){
+                messageViewHolder.messageSenderPicture.setVisibility(View.VISIBLE);
+                messageViewHolder.messageSenderPicture.setBackgroundResource(R.drawable.file);
+                messageViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(userMessageList.get(position).getMessage()));
+                        messageViewHolder.itemView.getContext().startActivity(intent);
+
+                    }
+                });
+            }
+            else {
+                messageViewHolder.receiverProfileImage.setVisibility(View.VISIBLE);
+                messageViewHolder.messageReceiverPicture.setVisibility(View.VISIBLE);
+                messageViewHolder.messageSenderPicture.setBackgroundResource(R.drawable.file);
             }
         }
     }

@@ -27,18 +27,20 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="5dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/file"/>
+        android:layout_margin="10dp"
+        android:background="@drawable/sender_message_layout"
+        android:padding="10dp"
+        android:scaleType="fitCenter"/>
 
     <ImageView
         android:id="@+id/message_receiver_image_view"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginTop="5dp"
+        android:background="@drawable/receiver_message_layout"
         android:layout_toEndOf="@id/message_profile_image"
-        android:scaleType="centerCrop"
-        android:src="@drawable/file" />
+        android:padding="10dp"
+        android:scaleType="fitCenter" />
 
     <TextView
         android:id="@+id/send_message_text"
