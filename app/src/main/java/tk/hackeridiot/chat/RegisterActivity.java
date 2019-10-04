@@ -73,7 +73,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 String currentUserID = mAuth.getCurrentUser().getUid();
                                 RootRef.child("Users").child(currentUserID).setValue("");
                                 RootRef.child("Users").child(currentUserID).child("device_token")
-                                        .setValue(deviceToken);
+                                        .setValue(deviceToken)  ;
                                 SendUserToMainActivity();
                                 Toast.makeText(RegisterActivity.this, "Account Created Successfully.", Toast.LENGTH_SHORT).show();
                                 loadingBar.dismiss();

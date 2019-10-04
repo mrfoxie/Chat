@@ -33,10 +33,8 @@ public class ContactsFragment extends Fragment
     private DatabaseReference ContacsRef, UsersRef;
     private FirebaseAuth mAuth;
     private String currentUserID;
-
-
     public ContactsFragment() {
-        // Required empty public constructor
+
     }
 
 
