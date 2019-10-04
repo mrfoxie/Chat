@@ -177,16 +177,16 @@ public class ChatActivity extends AppCompatActivity {
             fileUri = data.getData();
             if (!checker.equals("image")){
                 StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("Document Files");
-                final String messageSenderRef = "Messages/" + messageSenderID + "/" + messageReceiverID;
-                final String messageReceiverRef = "Messages/" + messageReceiverID + "/" + messageSenderID;
+                String messageSenderRef = "Messages/" + messageSenderID + "/" + messageReceiverID;
+                String messageReceiverRef = "Messages/" + messageReceiverID + "/" + messageSenderID;
                 DatabaseReference userMessageKeyRef = RootRef.child("Messages")
                         .child(messageSenderID).child(messageReceiverID).push();
-                final String messagePushID = userMessageKeyRef.getKey();
-                final StorageReference filePath = storageReference.child(messagePushID + "." + checker);
+                String messagePushID = userMessageKeyRef.getKey();
+                StorageReference filePath = storageReference.child(messagePushID + "." + checker);
                 filePath.putFile(fileUri).addOnCompleteListener(task -> {
                     if (task.isSuccessful()){
                         Map messageTextBody = new HashMap();
-                        messageTextBody.put("message", task.getResult().getDownloadUrl().toString());
+                        messageTextBody.put("message", task.getResult().getStorage().getDownloadUrl().toString());
                         messageTextBody.put("name", fileUri.getLastPathSegment());
                         messageTextBody.put("type", checker);
                         messageTextBody.put("from", messageSenderID);
@@ -216,12 +216,12 @@ public class ChatActivity extends AppCompatActivity {
             }
             else if (checker.equals("image")){
                 StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("Image Files");
-                final String messageSenderRef = "Messages/" + messageSenderID + "/" + messageReceiverID;
-                final String messageReceiverRef = "Messages/" + messageReceiverID + "/" + messageSenderID;
+                String messageSenderRef = "Messages/" + messageSenderID + "/" + messageReceiverID;
+                String messageReceiverRef = "Messages/" + messageReceiverID + "/" + messageSenderID;
                 DatabaseReference userMessageKeyRef = RootRef.child("Messages")
                         .child(messageSenderID).child(messageReceiverID).push();
-                final String messagePushID = userMessageKeyRef.getKey();
-                final StorageReference filePath = storageReference.child(messagePushID + "." + "jpg");
+                String messagePushID = userMessageKeyRef.getKey();
+                StorageReference filePath = storageReference.child(messagePushID + "." + "jpg");
                 uploadTask = filePath.putFile(fileUri);
                 uploadTask.continueWithTask((Continuation) task -> {
                     if (!task.isSuccessful()){
