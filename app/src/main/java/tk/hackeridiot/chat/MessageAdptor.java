@@ -112,17 +112,16 @@ public class MessageAdptor extends RecyclerView.Adapter<MessageAdptor.MessageVie
                 messageViewHolder.messageSenderPicture.setBackgroundResource(R.drawable.file);
                 messageViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View v) {
+                    public void onClick(View view) {
                         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(userMessageList.get(position).getMessage()));
                         messageViewHolder.itemView.getContext().startActivity(intent);
-
                     }
                 });
             }
             else {
                 messageViewHolder.receiverProfileImage.setVisibility(View.VISIBLE);
                 messageViewHolder.messageReceiverPicture.setVisibility(View.VISIBLE);
-                messageViewHolder.messageSenderPicture.setBackgroundResource(R.drawable.file);
+                messageViewHolder.messageReceiverPicture.setBackgroundResource(R.drawable.file);
             }
         }
     }

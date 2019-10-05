@@ -6,7 +6,7 @@ android {
     buildToolsVersion "29.0.0"
     defaultConfig {
         applicationId "tk.hackeridiot.chat"
-        minSdkVersion 27
+        minSdkVersion 17
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -14,7 +14,7 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -31,8 +31,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:18.1.0'
     implementation 'com.google.firebase:firebase-database:18.0.1'
     implementation 'com.google.firebase:firebase-messaging:20.0.0'
-    //implementation 'com.google.firebase:firebase-inappmessaging:19.0.1'
-    //implementation 'com.google.firebase:firebase-inappmessaging-display:19.0.1'
     implementation 'com.google.firebase:firebase-storage:18.1.1'
     implementation 'com.google.firebase:firebase-analytics:17.0.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
