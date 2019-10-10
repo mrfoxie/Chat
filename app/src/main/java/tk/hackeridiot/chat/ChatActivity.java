@@ -1,5 +1,6 @@
 package tk.hackeridiot.chat;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,11 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -86,54 +85,57 @@ public class ChatActivity extends AppCompatActivity {
         Picasso.get().load(messageReceiverImage).placeholder(R.drawable.logo_app).into(userImage);
         SendMessageButton.setOnClickListener(v -> SendMessage());
         DisplayLastSeen();
-        sendFileButton.setOnClickListener(view -> {
-            CharSequence options[] = new CharSequence[]{
-                    "Images",
-                    "PDF Files",
-                    "Word Files",
-                    "Presentation",
-                    "Excel"
-            };
-            AlertDialog.Builder builder = new AlertDialog.Builder(ChatActivity.this);
-            builder.setTitle("Select type of file");
-            builder.setItems(options, (dialogInterface, i) -> {
-                if (i == 0){
-                    checker = "image";
-                    Intent intent = new Intent();
-                    intent.setAction(Intent.ACTION_GET_CONTENT);
-                    intent.setType("image/*");
-                    startActivityForResult(intent.createChooser(intent, "Select Image"), 438);
-                }
-                if (i == 1){
-                    checker = "pdf";
-                    Intent intent = new Intent();
-                    intent.setAction(Intent.ACTION_GET_CONTENT);
-                    intent.setType("application/pdf");
-                    startActivityForResult(intent.createChooser(intent, "Select PDF"), 438);
-                }
-                if (i == 2){
-                    checker = "docx";
-                    Intent intent = new Intent();
-                    intent.setAction(Intent.ACTION_GET_CONTENT);
-                    intent.setType("application/docs");
-                    startActivityForResult(intent.createChooser(intent, "Select Docs"), 438);
-                }
-                if (i == 3){
-                    checker = "pptx";
-                    Intent intent = new Intent();
-                    intent.setAction(Intent.ACTION_GET_CONTENT);
-                    intent.setType("application/ppt");
-                    startActivityForResult(intent.createChooser(intent, "Select PPT"), 438);
-                }
-                if (i == 4){
-                    checker = "xlsx";
-                    Intent intent = new Intent();
-                    intent.setAction(Intent.ACTION_GET_CONTENT);
-                    intent.setType("application/excel");
-                    startActivityForResult(intent.createChooser(intent, "Select Excel"), 438);
-                }
-            });
-            builder.show();
+        sendFileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CharSequence options[] = new CharSequence[]{
+                        "Images",
+                        "PDF Files",
+                        "Word Files",
+                        "Presentation",
+                        "Excel"
+                };
+                AlertDialog.Builder builder = new AlertDialog.Builder(ChatActivity.this);
+                builder.setTitle("Select type of file");
+                builder.setItems(options, (dialogInterface, i) -> {
+                    if (i == 0) {
+                        checker = "image";
+                        Intent intent = new Intent();
+                        intent.setAction(Intent.ACTION_GET_CONTENT);
+                        intent.setType("image/*");
+                        startActivityForResult(intent.createChooser(intent, "Select Image"), 438);
+                    }
+                    if (i == 1) {
+                        checker = "pdf";
+                        Intent intent = new Intent();
+                        intent.setAction(Intent.ACTION_GET_CONTENT);
+                        intent.setType("application/pdf");
+                        startActivityForResult(intent.createChooser(intent, "Select PDF"), 438);
+                    }
+                    if (i == 2) {
+                        checker = "docs";
+                        Intent intent = new Intent();
+                        intent.setAction(Intent.ACTION_GET_CONTENT);
+                        intent.setType("application/docs");
+                        startActivityForResult(intent.createChooser(intent, "Select Docs"), 438);
+                    }
+                    if (i == 3) {
+                        checker = "ppt";
+                        Intent intent = new Intent();
+                        intent.setAction(Intent.ACTION_GET_CONTENT);
+                        intent.setType("application/ppt");
+                        startActivityForResult(intent.createChooser(intent, "Select PPT"), 438);
+                    }
+                    if (i == 4) {
+                        checker = "xlsx";
+                        Intent intent = new Intent();
+                        intent.setAction(Intent.ACTION_GET_CONTENT);
+                        intent.setType("application/excel");
+                        startActivityForResult(intent.createChooser(intent, "Select Excel"), 438);
+                    }
+                });
+                builder.show();
+            }
         });
     }
 
@@ -182,41 +184,32 @@ public class ChatActivity extends AppCompatActivity {
                 DatabaseReference userMessageKeyRef = RootRef.child("Messages")
                         .child(messageSenderID).child(messageReceiverID).push();
                 final String messagePushID = userMessageKeyRef.getKey();
-                StorageReference filePath = storageReference.child(messagePushID + "." + checker);
-                filePath.putFile(fileUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                final StorageReference filePath = storageReference.child(messagePushID + "." + checker);
+                filePath.putFile(fileUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                String downloadUrl = uri.toString();
-
-                                Map messageImageBody = new HashMap();
-                                messageImageBody.put("message",downloadUrl);
-                                messageImageBody.put("name",fileUri.getLastPathSegment());
-                                messageImageBody.put("type",checker);
-                                messageImageBody.put("from",messageSenderID);
-                                messageImageBody.put("to", messageReceiverID);
-                                messageImageBody.put("messageID", messagePushID);
-                                messageImageBody.put("time", saveCurrentTime);
-                                messageImageBody.put("date", saveCurrentDate);
-
-
-                                Map messageBodyDetail = new HashMap();
-                                messageBodyDetail.put(messageSenderRef+ "/" + messagePushID, messageImageBody);
-                                messageBodyDetail.put(messageReceiverRef+ "/" + messagePushID, messageImageBody);
-
-                                RootRef.updateChildren(messageBodyDetail);
-                                loadingBar.dismiss();
-
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(Exception e) {
-                                loadingBar.dismiss();
-                                Toast.makeText(ChatActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                        if (task.isSuccessful()){
+                            Map messageTextBody = new HashMap();
+                            messageTextBody.put("message", task.getResult().getMetadata().getReference().getDownloadUrl().toString());
+                            messageTextBody.put("name", fileUri.getLastPathSegment());
+                            messageTextBody.put("type", checker);
+                            messageTextBody.put("from", messageSenderID);
+                            messageTextBody.put("to", messageReceiverID);
+                            messageTextBody.put("messageID", messagePushID);
+                            messageTextBody.put("time", saveCurrentTime);
+                            messageTextBody.put("date", saveCurrentDate);
+                            Map messageBodyDetails = new HashMap();
+                            messageBodyDetails.put(messageSenderRef + "/" + messagePushID, messageTextBody);
+                            messageBodyDetails.put(messageReceiverRef + "/" + messagePushID, messageTextBody);
+                            RootRef.updateChildren(messageBodyDetails);
+                            loadingBar.dismiss();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        loadingBar.dismiss();
+                        Toast.makeText(ChatActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                     @Override
